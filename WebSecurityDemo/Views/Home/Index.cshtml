@@ -1,0 +1,44 @@
+﻿@model WebSecurityDemo.Models.SearchViewModel
+@{
+    ViewData["Title"] = "Home Page";
+}
+@if(Model.SearchResult.Count == 0)
+{
+    <div class="alert alert-danger" role="alert">
+        No se encontró usarios con el nombre "@Html.Raw(Model.SearchText)"
+    </div>
+}
+<br />
+<form asp-controller="Home" asp-action="Index" method="get" class="form-inline my-2 my-lg-0">
+    <input class="form-control mr-sm-2" name="searchText" type="search" placeholder="Search" aria-label="Search" value="@Model.SearchText">
+    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+</form>
+<br />
+<table class="table table-bordered table-hover">
+    <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Fullname</th>
+            <th scope="col">Gender</th>
+            <th scope="col">Email</th>
+            <th scope="col">UserName</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.SearchResult)
+        {
+            <tr>
+                <th scope="row">@item.Id</th>
+                <td>@item.FullName</td>
+                <td>@item.Gender</td>
+                <td>@item.Email</td>
+                <td>@Html.Raw(item.UserName)</td>
+            </tr>
+        }
+    </tbody>
+</table>
+<br />
+<form asp-controller="Home" asp-action="Add" method="post" class="form-inline my-2 my-lg-0">
+    <input class="form-control mr-sm-2" name="userName" type="text" placeholder="NickName">
+    <button class="btn btn-outline-danger my-2 my-sm-0" type="submit">Agregar</button>
+</form>
